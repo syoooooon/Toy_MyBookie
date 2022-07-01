@@ -1,59 +1,135 @@
 package com.syoon.mybookie.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import com.syoon.mybookie.Adapter.FavoriteAdapter
+import com.syoon.mybookie.Adapter.SearchAdapter
+import com.syoon.mybookie.R
+import com.syoon.mybookie.databinding.FragmentFavoriteBinding
+import com.syoon.mybookie.databinding.FragmentSearchBinding
+import com.syoon.mybookie.repository.RoomRepository
+import com.syoon.mybookie.viewmodel.FavoriteViewModel
+import com.syoon.mybookie.viewmodel.FavoriteViewModelFactory
+import com.syoon.mybookie.viewmodel.SearchViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoriteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoriteFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var binding: FragmentFavoriteBinding
+
+    private val favoriteVM by lazy {
+        ViewModelProvider(this, FavoriteViewModelFactory(RoomRepository(requireContext()))).get(FavoriteViewModel::class.java)
+    }
+
+    var favAdapter = FavoriteAdapter()
+
+    companion object {
+        fun newInstance(): FavoriteFragment {
+            return FavoriteFragment()
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding!!.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoriteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // grid layout
+        binding.rvFavorite.layoutManager = GridLayoutManager(context, 2)
+
+        loadBooks()
+
+    }
+
+    @SuppressLint("LongLogTag")
+    private fun loadBooks() {
+        binding.rvFavorite.adapter = favAdapter
+        favoriteVM.fetchFavList().observe(viewLifecycleOwner, {
+            favAdapter.setBookList(it)
+        })
     }
 }
+
+
+
+
+
+
+
+
+//    private lateinit var booksRVFav: RecyclerView
+//    private lateinit var favAdapter: FavoriteAdapter
+//    private lateinit var favIcon: ImageView
+//    private lateinit var favText: TextView
+
+
+
+
+
+//    private fun loadBooks() {
+//
+//        val scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up)
+//
+//        vm.fetchFavList(viewLifecycleOwner).observe(viewLifecycleOwner, {
+//            if (it.isNullOrEmpty()) {
+//                favIcon.setVisibility(View.VISIBLE)
+//                favText.setVisibility(View.VISIBLE)
+//                booksRVFav.setVisibility(View.GONE)
+//            }else{
+//                favIcon.setVisibility(View.GONE)
+//                favText.setVisibility(View.GONE)
+//            }
+//            favAdapter = FavoriteAdapter(it, vm, scaleUp, favIcon,favText)
+//            booksRVFav.adapter = favAdapter
+//
+//        })
+//    }
+//
+//    // Recyclerview
+//    val wishlistAdapter = WishlistAdapter(this)
+//    binding.bookWishListRecyclerView.adapter = wishlistAdapter
+//    binding.bookWishListRecyclerView.layoutManager = LinearLayoutManager(this)
+//
+//    // BookDataViewModel
+//    mBookDataViewModel = ViewModelProvider(this).get(BookDataViewModel::class.java)
+//    mBookDataViewModel.readAllData.observe(this, Observer { book ->
+//        wishlistAdapter.setData(book)
+//    })
+//}
+//binding.wishlistImageView.setOnClickListener {
+//
+//    if (book.isFavourite == true) {
+//
+//        binding.wishlistImageView.setImageResource(R.drawable.ic_empty_star)
+//        mBookDataViewModel.deleteBook(book)
+//        book.isFavourite = false
+//
+//        Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
+//            .show()
+//    } else {
+//
+//        binding.wishlistImageView.setImageResource(R.drawable.ic_filled_star)
+//        mBookDataViewModel.addBook(book)
+//        book.isFavourite = true
+//
+//        Toast.makeText(applicationContext, "Book added to wishlist", Toast.LENGTH_LONG)
+//            .show()
+//    }
+//}
+//}
+
