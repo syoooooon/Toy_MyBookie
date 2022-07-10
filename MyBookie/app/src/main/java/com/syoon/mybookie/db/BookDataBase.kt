@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [Favorite::class], version = 1, exportSchema = false)
+@TypeConverters(TypeConverterFavorite::class)
 abstract class BookDataBase: RoomDatabase() {
 
     abstract fun getDao() : BookDao

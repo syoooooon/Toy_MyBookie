@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.syoon.mybookie.ui.SearchFragment"
+        android:name="com.syoon.mybookie.ui.fragment.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.syoon.mybookie.ui.FavoriteFragment"
+        android:name="com.syoon.mybookie.ui.fragment.FavoriteFragment"
         android:label="FavoriteFragment"
         tools:layout="@layout/fragment_favorite" />
 

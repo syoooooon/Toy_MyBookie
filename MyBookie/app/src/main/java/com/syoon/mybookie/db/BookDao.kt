@@ -19,9 +19,8 @@ interface BookDao {
     @Delete
     suspend fun deleteBook(book: Favorite)
 
-
-    // 즐겨 찾기한 상품인지 확인
-//    @Query("SELECT * FROM BookMarkTable WHERE id = (:id)")
-//    fun isBookMarked(id: Int): BookMark?
+    // favorite 상태 체크
+    @Query("UPDATE astrophotoentity SET isFavorite =:isFavorite WHERE id = :id")
+    fun isBookMarked(id: String): Boolean
 
 }

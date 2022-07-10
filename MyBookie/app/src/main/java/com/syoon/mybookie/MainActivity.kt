@@ -2,11 +2,9 @@ package com.syoon.mybookie
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.syoon.mybookie.databinding.ActivityMainBinding
-import com.syoon.mybookie.ui.FavoriteFragment
-import com.syoon.mybookie.ui.SearchFragment
+import com.syoon.mybookie.ui.fragment.FavoriteFragment
+import com.syoon.mybookie.ui.fragment.SearchFragment
 
 class MainActivity : AppCompatActivity() {
 
