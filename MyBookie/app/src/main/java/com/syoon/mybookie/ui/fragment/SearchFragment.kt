@@ -16,11 +16,7 @@ import com.syoon.mybookie.viewmodel.SearchViewModel
 
 
 // fragment viewBinding - https://gift123.tistory.com/58
-// view binding 중복 코드 없애기 - BaseFragment
-class SearchFragment : Fragment() {
-
-    private var _binding : FragmentSearchBinding? = null
-    private val binding get() = _binding!!
+class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     val searchVM: SearchViewModel by lazy {
         ViewModelProvider(this).get(SearchViewModel::class.java)
@@ -34,15 +30,6 @@ class SearchFragment : Fragment() {
             return SearchFragment()
         }
     }
-
-    // 뷰 생성시 프레그먼트와 레이아웃 연결
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding!!.root}
-
 
     // LiveData, recyclerview Adapter .. 셋팅
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,10 +72,5 @@ class SearchFragment : Fragment() {
             }
             Log.d("Google books main Response", it.toString())
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

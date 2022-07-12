@@ -5,12 +5,12 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class BookDetailData(
-    val id: String,
-    val bookSmallThumbnail: String?,
-    val title: String,
-    val publisher: String?,
-    val bookDescription: String?,
-    val previewLink: String?,
-    val bookThumbnail: String?,
-    var isFavourite: Boolean? = false
+    val title : String?,
+    val authors : List<String>?  = listOf(""),
+    val publishedDate : String,
+    val description : String?,
+    val pageCount : Int?,
+    val previewLink : String?,
+    val categories : List<String>? = listOf(""),
+    val imageLinks : String?,
 ) : Parcelable

@@ -3,7 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id "kotlin-parcelize"
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -61,10 +62,6 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.4.2'
     implementation 'androidx.room:room-runtime:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
-
-    //InvocationTargetException 에러 시 추가
-    //kapt "org.xerial:sqlite-jdbc:3.34.0"
-
 
     //navigation
     implementation 'androidx.navigation:navigation-fragment:2.4.2'

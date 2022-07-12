@@ -10,15 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.syoon.mybookie.ui.adapter.FavoriteAdapter
 import com.syoon.mybookie.databinding.FragmentFavoriteBinding
+import com.syoon.mybookie.databinding.FragmentSearchBinding
 import com.syoon.mybookie.repository.RoomRepository
 import com.syoon.mybookie.viewmodel.FavoriteViewModel
 import com.syoon.mybookie.viewmodel.FavoriteViewModelFactory
 
 
-class FavoriteFragment : Fragment() {
-
-    private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteBinding::inflate) {
 
     private val favoriteVM by lazy {
         ViewModelProvider(this, FavoriteViewModelFactory(RoomRepository(requireContext()))).get(FavoriteViewModel::class.java)
@@ -32,14 +30,6 @@ class FavoriteFragment : Fragment() {
         }
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        return binding!!.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,11 +47,6 @@ class FavoriteFragment : Fragment() {
         favoriteVM.fetchFavList().observe(viewLifecycleOwner, {
             favAdapter.setBookList(it)
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
 

@@ -9,12 +9,29 @@
         android:id="@+id/searchFragment"
         android:name="com.syoon.mybookie.ui.fragment.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment2"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.syoon.mybookie.ui.fragment.FavoriteFragment"
         android:label="FavoriteFragment"
         tools:layout="@layout/fragment_favorite" />
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.syoon.mybookie.ui.fragment.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <argument
+            android:name="booksInfo"
+            app:argType="com.syoon.mybookie.model.BookDetailData" />
+    </fragment>
 
 </navigation>

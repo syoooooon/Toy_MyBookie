@@ -21,6 +21,7 @@ data class Favorite(
     val authors: List<String>?,
     @ColumnInfo(name = "imageLinks")
     val imageLinks: String?,
+    @ColumnInfo(name = "isFavBook")
     var isFavBook: Boolean? = false
 )
 
